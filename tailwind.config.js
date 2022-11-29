@@ -10,7 +10,7 @@ module.exports = {
         picWidth: '60vw'
       },
       height: {
-        picHeight: '70vh'
+        picHeight: '80vh'
       }
     },
   },

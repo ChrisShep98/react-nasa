@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react'
 import Button from './components/Button'
-// import Date from './components/Date'
 
 function App() {
 
@@ -16,6 +15,7 @@ function App() {
           .then(res => res.json())
           .then(data => {
             console.log(data)
+            console.log(inputRef.current.value)
             if(data.media_type === 'image'){
               setPicture(data.hdurl)
             }else if(data.media_type === 'video'){
@@ -28,28 +28,28 @@ function App() {
 
   return (
     <div className='container mx-auto flex justify-center items-center'>
-      <div className='text-center mt-24 border'>
+      <div className='text-center mt-20 border'>
         <h1>Astronomy Picture of the Day</h1>
         <div>
         <input className='bg-white hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded shadow h-8' type='date' ref={inputRef}></input>
         <Button text={'Get Picture'} onClick={getFetch}></Button>
-        
-        {/* <div className='bg-red-500 w-full h-picHeight flex'>
-          <img className='object-contain' src={picture} alt=''></img>
-          <iframe src={video} frameBorder={'0'} title={'video'}></iframe>
-          <div>
-            <h2>{title}</h2>
+        <Button text={'Favorite'} />
+        <div className='bg-slate-400 w-full h-picHeight flex'>
+          <img className='' src={picture} alt=''></img>
+          {/* <iframe src={video} frameBorder={'0'} title={'video'}></iframe> */}
+          <div className='self-center'>
+            <h2 className='underline pb-3'>{title}</h2>
             <p>{explanation}</p>
           </div>
-        </div> */}
+        </div>
 
         
-        <div className='bg-red-500 w-full h-picHeight'>
+        {/* <div className='bg-red-500 w-full h-picHeight'>
           <h2>{title}</h2>
           <img className='w-full h-full object-contain' src={picture} alt=''></img>
-          {/* <iframe src={video} frameBorder={'0'} title={'video'}></iframe> */}
+          <iframe src={video} frameBorder={'0'} title={'video'}></iframe>
           <p className=''>{explanation}</p>
-        </div>
+        </div> */}
         
         </div>
       </div>
