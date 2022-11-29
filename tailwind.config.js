@@ -5,7 +5,14 @@ module.exports = {
     './public/index.html'
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        picWidth: '60vw'
+      },
+      height: {
+        picHeight: '70vh'
+      }
+    },
   },
   screens: {
     sm: '480px',

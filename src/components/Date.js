@@ -7,6 +7,7 @@ const Date = () => {
     const [picture, setPicture] = useState('')
     const [video, setVideo] = useState('')
     const [title, setTitle] = useState('')
+    const [explanation, setExplanation] = useState('')
 
     function getFetch(){
 
@@ -20,6 +21,7 @@ const Date = () => {
               setVideo(data.url)
             }
               setTitle(data.title)
+              setExplanation(data.explanation)
           })
       }
 
@@ -32,7 +34,9 @@ const Date = () => {
           <h2>{title}</h2>
           <img className='object-fit' src={picture} alt=''></img>
           <iframe src={video} frameBorder={'0'} title={'video'}></iframe>
+          
         </div>
+        <p>Explanation: {explanation}</p>
     </div>
   )
 }
