@@ -1,5 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Button from './components/Button'
+import Favorites from './components/Favorites'
+import AddFavorite from './components/AddFavorite'
+// import Favorite from './components/Favorite'
 
 function App() {
 
@@ -9,10 +13,7 @@ function App() {
     const [title, setTitle] = useState('')
     const [explanation, setExplanation] = useState('')
 
-    let favId = 0
     const [favItem, setFavItem] = useState([])
-
-    
 
     function getFetch(){
 
@@ -31,43 +32,78 @@ function App() {
           })
       }
 
-      function addToFav(){
+      // function addToFav(){
+      //       setFavItem([
+      //         ...favItem,
+      //         {date: `${inputRef.current.value}`, picture: picture,}
+      //       ])
+      // }
 
-        // fetch(`https://api.nasa.gov/planetary/apod?api_key=zU71SV2z8UAS2tpSRxtx9Ii4giGUAk6QIufK4bCn&date=${inputRef.current.value}`)
-        //   .then(res => res.json())
-        //   .then(data => {
-            setFavItem([
-              ...favItem,
-              {date: `${inputRef.current.value}`, picture: picture,}
-            ])
-          // })
+      useEffect(() => {
+        const getFavorites = async () => {
+          const favoritesFromServer = await fetchFavorites()
+          setFavItem(favoritesFromServer)
+        }
+        getFavorites()
+      }, [])
+
+
+      const fetchFavorites = async () => {
+        const res = await fetch('http://localhost:2000/favorites')
+        const data = await res.json()
+
+        return data
       }
 
-      
+        
+      const fetchFavorite = async (id) => {
+        const res = await fetch(`http://localhost:5000/favorites/${id}`)
+        const data = await res.json()
+  
+        return data
+      }
 
-      // function addToFav(){
-      //   setFavItem([
-      //     ...favItem,
-      //     {id: favId++ , date: `${inputRef.current.value}`}
-      //   ])
-      // }
-      console.log(favItem)
+      const addFavorite = async (favorite) => {
+        const res = await fetch('http://localhost:2000/favorites', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify(favorite)
+        })
+
+        const data = await res.json()
+
+        setFavItem([...favItem, data])
+      }
+
+
 
   return (
+    <Router>
     <div className='container mx-auto flex justify-center items-center'>
       <div className='text-center mt-20 border'>
         <h1>Astronomy Picture of the Day</h1>
         <div>
         <input className='bg-white hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded shadow h-8' type='date' ref={inputRef}></input>
+        <AddFavorite onAdd={addFavorite} />
         <Button text={'Get Picture'} onClick={getFetch}></Button>
-        <Button text={'View Favorites'} />
+        <Routes>
+        <Route path='/' element={
+          <>
+          <Button text={'Favorites'} onClick={addFavorite} />
+          {favItem.length > 0 ? <Favorites favorites={favItem} /> : 'No favorites to Show'}
+          </>
+        }
+        />
+        </Routes>
         <div className='bg-slate-400 w-full h-picHeight flex'>
           <img className='' src={picture} alt=''></img>
           {/* <iframe src={video} frameBorder={'0'} title={'video'}></iframe> */}
           <div className='self-center'>
             <h2 className='underline pb-3'>{title}</h2>
             <p>{explanation}</p>
-            <Button text={'Add to Favorites'} onClick={addToFav}/>
+            {/* <Button text={'Add to Favorites'} /> */}
           </div>
           
         </div>
@@ -83,6 +119,7 @@ function App() {
         </div>
       </div>
     </div>
+    </Router>
   );
 }
 
