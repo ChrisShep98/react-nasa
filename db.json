@@ -1,10 +1,12 @@
 {
   "favorites": [
     {
+      "title": "",
+      "picture": "",
       "id": 1
     },
     {
-      "title": "2022-11-21",
+      "title": "",
       "picture": "",
       "id": 2
     },
@@ -12,6 +14,11 @@
       "title": "",
       "picture": "",
       "id": 3
+    },
+    {
+      "title": "Artemis 1: Flight Day 13",
+      "picture": "https://apod.nasa.gov/apod/image/2212/art001e000672-orig.jpg",
+      "id": 4
     }
   ]
 }

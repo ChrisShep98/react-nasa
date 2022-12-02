@@ -17,17 +17,17 @@ const AddFavorite = ({onAdd}) => {
           })
         onAdd({title, picture})
 
-        setTitle('')
-        setPicture('')
+        console.log('test')
+
+        // setTitle('')
+        // setPicture('')
     }
 
   return (
     <form className='add-form' onSubmit={onSubmit}>
         <div>
             
-            <input type='date' placeholder='Add Fav' ref={inputRef}
-            onClick={() =>
-            setTitle(e.target.value)} />
+            <input type='date' placeholder='Add Fav' ref={inputRef} onClick={onSubmit}/>
         </div>
         {/* <div className='form-control'>
             <label>Day & Time</label>
@@ -35,7 +35,7 @@ const AddFavorite = ({onAdd}) => {
             value={day} onChange={(e) =>
                 setPicture(e.target.value)}/>
         </div> */}
-        <input type='submit' value='Save Task' className='btn btn-block' />
+        <input type='submit' value='Save Task' className='btn btn-block'/>
     </form>
   )
 }

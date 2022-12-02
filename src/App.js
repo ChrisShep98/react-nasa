@@ -20,7 +20,7 @@ function App() {
         fetch(`https://api.nasa.gov/planetary/apod?api_key=zU71SV2z8UAS2tpSRxtx9Ii4giGUAk6QIufK4bCn&date=${inputRef.current.value}`)
           .then(res => res.json())
           .then(data => {
-            // console.log(data)
+            console.log(data)
             // console.log(inputRef.current.value)
             if(data.media_type === 'image'){
               setPicture(data.hdurl)
@@ -57,7 +57,7 @@ function App() {
 
         
       const fetchFavorite = async (id) => {
-        const res = await fetch(`http://localhost:5000/favorites/${id}`)
+        const res = await fetch(`http://localhost:2000/favorites/${id}`)
         const data = await res.json()
   
         return data
@@ -85,14 +85,15 @@ function App() {
       <div className='text-center mt-20 border'>
         <h1>Astronomy Picture of the Day</h1>
         <div>
+    
         <input className='bg-white hover:bg-gray-100 text-gray-800 font-semibold border border-gray-400 rounded shadow h-8' type='date' ref={inputRef}></input>
         <AddFavorite onAdd={addFavorite} />
         <Button text={'Get Picture'} onClick={getFetch}></Button>
         <Routes>
         <Route path='/' element={
           <>
-          <Button text={'Favorites'} onClick={addFavorite} />
-          {favItem.length > 0 ? <Favorites favorites={favItem} /> : 'No favorites to Show'}
+          <Button text={'Add to Favorites'} onClick={addFavorite} />
+          {/* {favItem.length > 0 ? <Favorites favorites={favItem} /> : 'No favorites to Show'} */}
           </>
         }
         />
